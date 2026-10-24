@@ -35,7 +35,21 @@ The API offers a variety of routes to work with *cohort* and *student* documents
 | GET       | `/api/students/:studentId`        | (empty)      | Returns the specified student by id                            |
 | POST      | `/api/students`                   | JSON         | Creates a new student **with their respective cohort id**      |
 | PUT       | `/api/students/:studentId`        | JSON         | Updates the specified student by id                            |
-| DELETE    | `/api/students/:studentId`        | (empty)      | Deletes the specified cohort by id                             |
+| DELETE    | `/api/students/:studentId`        | (empty)      | Deletes the specified student by id                            |
+
+
+<hr>
+
+<br>
+
+#### Auth & user routes
+
+| HTTP verb | URL                  | Request body                  | Action                                                     |
+| --------- | -------------------- | ----------------------------- | ---------------------------------------------------------- |
+| POST      | `/auth/signup`       | `{ email, password, name }`   | Creates a new user (password is hashed with bcrypt)        |
+| POST      | `/auth/login`        | `{ email, password }`         | Returns `{ authToken }` (JWT, expires in 6h)               |
+| GET       | `/auth/verify`       | (empty) – **Bearer token**    | Returns the token payload `{ _id, email, name }`           |
+| GET       | `/api/users/:userId` | (empty) – **Bearer token**    | Returns the specified user by id (without password)        |
 
 
 <hr>
@@ -86,3 +100,12 @@ The *Models* section holds information about the data models for your database. 
 
 <br>
 
+<br>
+
+#### User Model
+
+| Field      | Data Type  | Description                                   |
+|------------|------------|-----------------------------------------------|
+| `email`    | *`String`* | Email address of the user. Required, unique.  |
+| `password` | *`String`* | Hashed password. Required.                    |
+| `name`     | *`String`* | Name of the user. Required.                   |
